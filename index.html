@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReadSmart — Interactive Article Summarizer</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">📖</span>
+        <span class="logo-text">ReadSmart</span>
+      </div>
+      <p class="tagline">Paste an article · Understand it · Summarize it · Record it</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ══════════════════ SECTION 1 — ARTICLE INPUT ══════════════════ -->
+    <section class="card" id="card-article">
+      <div class="card-header">
+        <span class="step-badge">1</span>
+        <h2>Article Input</h2>
+      </div>
+      <div class="card-body">
+        <label for="articleText" class="sr-only">Paste your article here</label>
+        <textarea
+          id="articleText"
+          placeholder="Paste or type your article here…"
+          rows="10"
+          aria-label="Article text input"
+        ></textarea>
+
+        <div class="char-count"><span id="charCount">0</span> characters</div>
+
+        <button id="analyzeBtn" class="btn btn-primary btn-large" aria-label="Analyze the article">
+          <span class="btn-icon">🔍</span> Analyze Article
+        </button>
+
+        <!-- Global loading bar -->
+        <div id="globalLoader" class="loader-bar" role="status" aria-live="polite" hidden>
+          <div class="loader-bar-fill"></div>
+          <span class="loader-label">Analyzing article — this may take a few seconds…</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ SECTION 2 — EXPLANATION & VOCAB ══════════════════ -->
+    <section class="card card-locked" id="card-explain" aria-label="Explanation and Vocabulary">
+      <div class="card-header">
+        <span class="step-badge">2</span>
+        <h2>Explanation &amp; Vocabulary</h2>
+        <span id="voiceLabel" class="voice-chip" hidden></span>
+      </div>
+
+      <div class="card-body">
+        <!-- skeleton while loading -->
+        <div id="explainSkeleton" class="skeleton-group" hidden>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-line"></div>
+          <div class="skeleton skeleton-line short"></div>
+          <div class="skeleton skeleton-line"></div>
+          <div class="skeleton skeleton-line short"></div>
+        </div>
+
+        <!-- real content -->
+        <div id="explainContent" hidden>
+          <h3 class="subsection-title">📝 Article Explanation</h3>
+          <p id="explanationText" class="explanation-body"></p>
+
+          <h3 class="subsection-title vocab-heading">📚 Vocabulary Builder</h3>
+          <div id="vocabGrid" class="vocab-grid" role="list" aria-label="Vocabulary words"></div>
+        </div>
+
+        <!-- locked overlay -->
+        <div class="locked-overlay" id="explainLock">
+          <span class="lock-icon">🔒</span>
+          <p>Submit an article above to unlock this section.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ SECTION 3 — SUMMARY & GRAMMAR CHECK ══════════════════ -->
+    <section class="card card-locked" id="card-summary" aria-label="Summary Writing and Grammar Check">
+      <div class="card-header">
+        <span class="step-badge">3</span>
+        <h2>Write Your Summary</h2>
+      </div>
+
+      <div class="card-body">
+        <!-- skeleton -->
+        <div id="outlineSkeleton" class="skeleton-group" hidden>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-line short"></div>
+          <div class="skeleton skeleton-line short"></div>
+          <div class="skeleton skeleton-line short"></div>
+          <div class="skeleton skeleton-line short"></div>
+        </div>
+
+        <!-- outline hints -->
+        <div id="outlineContent" hidden>
+          <h3 class="subsection-title">🗂️ Outline Hints</h3>
+          <ul id="outlineList" class="outline-list" aria-label="Outline hints"></ul>
+        </div>
+
+        <!-- student summary input -->
+        <div id="summaryInputArea" hidden>
+          <h3 class="subsection-title">✏️ Your Summary</h3>
+          <label for="studentSummary" class="sr-only">Write your summary here</label>
+          <textarea
+            id="studentSummary"
+            placeholder="Use the outline hints above to write your summary here…"
+            rows="6"
+            aria-label="Student summary input"
+          ></textarea>
+
+          <button id="checkGrammarBtn" class="btn btn-secondary" aria-label="Check grammar of your summary">
+            <span class="btn-icon">✅</span> Check Summary
+          </button>
+
+          <div id="grammarLoader" class="inline-loader" hidden role="status" aria-live="polite">
+            <span class="spinner"></span> Checking grammar…
+          </div>
+        </div>
+
+        <!-- corrected output -->
+        <div id="correctedArea" hidden>
+          <h3 class="subsection-title">🔧 Grammar‑Corrected Version</h3>
+          <div id="correctedText" class="corrected-box" role="region" aria-label="Corrected summary"></div>
+          <button id="acceptCorrectionBtn" class="btn btn-success" aria-label="Accept corrected summary and proceed to recording">
+            <span class="btn-icon">⬇️</span> Use This for Recording
+          </button>
+        </div>
+
+        <!-- locked overlay -->
+        <div class="locked-overlay" id="summaryLock">
+          <span class="lock-icon">🔒</span>
+          <p>Submit an article above to unlock this section.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ SECTION 4 — READ & RECORD ══════════════════ -->
+    <section class="card card-locked" id="card-record" aria-label="Read and Record">
+      <div class="card-header">
+        <span class="step-badge">4</span>
+        <h2>Read &amp; Record</h2>
+      </div>
+
+      <div class="card-body">
+        <div id="recordContent" hidden>
+          <h3 class="subsection-title">🎙️ Teleprompter</h3>
+          <p class="record-hint">Read the corrected summary below aloud and record yourself.</p>
+          <div id="teleprompter" class="teleprompter" role="region" aria-label="Text to read aloud"></div>
+
+          <div class="record-controls" role="group" aria-label="Recording controls">
+            <button id="recordBtn" class="btn btn-record" aria-label="Start recording">
+              <span class="record-dot"></span> Start Recording
+            </button>
+            <button id="recordAgainBtn" class="btn btn-outline" hidden aria-label="Record again">
+              🔄 Record Again
+            </button>
+          </div>
+
+          <div id="recordingStatus" class="recording-status" hidden role="status" aria-live="polite">
+            <span class="pulse-dot"></span> Recording in progress…
+          </div>
+
+          <div id="playbackArea" hidden>
+            <h3 class="subsection-title">🎧 Your Recording</h3>
+            <audio id="playbackAudio" controls class="playback-audio" aria-label="Recorded audio playback"></audio>
+          </div>
+        </div>
+
+        <!-- locked overlay -->
+        <div class="locked-overlay" id="recordLock">
+          <span class="lock-icon">🔒</span>
+          <p>Complete your grammar‑checked summary above to unlock this section.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast notification -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Hidden audio element for vocab TTS -->
+  <audio id="ttsAudio" aria-label="Vocabulary word pronunciation" style="display:none;"></audio>
+
+  <footer class="site-footer">
+    <p>ReadSmart · All data lives only in this browser tab · No information is stored or transmitted beyond API calls</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
