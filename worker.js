@@ -15,8 +15,8 @@
 
 const ALLOWED_ORIGINS = [
   'https://preludeabc.pages.dev',       // Cloudflare Pages production
-  'https://www.learnwithmax.com',       // custom domain (add yours here)
-  'https://learnwithmax.com',
+  'https://www.maxfacts.work',       // custom domain (add yours here)
+  'https://maxfacts.work',
   'http://localhost:3000',              // local dev
   'http://127.0.0.1:3000',
 ];
