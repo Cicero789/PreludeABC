@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Max — Practice Speech</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,600;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="speech.css" />
+</head>
+<body class="speech-page">
+
+  <!-- ════════════ HEADER ════════════ -->
+  <header class="site-header" role="banner">
+    <div class="header-art" aria-hidden="true">
+      <svg class="header-svg" viewBox="0 0 900 90" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyGrad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fde68a"/>
+            <stop offset="45%" stop-color="#fb923c"/>
+            <stop offset="100%" stop-color="#c2410c"/>
+          </linearGradient>
+          <linearGradient id="hillGrad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#166534"/>
+            <stop offset="100%" stop-color="#14532d"/>
+          </linearGradient>
+          <linearGradient id="hill2Grad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#15803d"/>
+            <stop offset="100%" stop-color="#166534"/>
+          </linearGradient>
+          <linearGradient id="waterGrad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#075985"/>
+            <stop offset="100%" stop-color="#0c4a6e"/>
+          </linearGradient>
+          <radialGradient id="sunGrad2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fef3c7"/>
+            <stop offset="60%" stop-color="#fcd34d"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="900" height="180" fill="url(#skyGrad2)"/>
+        <circle cx="450" cy="78" r="52" fill="url(#sunGrad2)" opacity="0.9"/>
+        <circle cx="450" cy="78" r="28" fill="#fef9c3" opacity="0.95"/>
+        <path d="M0,130 Q80,70 160,115 Q220,75 290,118 Q360,68 430,112 Q490,72 560,116 Q630,65 700,112 Q760,75 830,110 L900,105 L900,180 L0,180Z" fill="#9a3412" opacity="0.55"/>
+        <path d="M0,148 Q120,100 250,140 Q370,108 500,145 Q620,105 760,138 Q840,118 900,130 L900,180 L0,180Z" fill="url(#hillGrad2)" opacity="0.85"/>
+        <path d="M0,160 Q100,135 220,155 Q350,138 480,158 Q600,140 720,160 Q820,146 900,155 L900,180 L0,180Z" fill="url(#hill2Grad2)"/>
+        <path d="M200,168 Q350,158 500,165 Q650,156 760,165 L760,180 L200,180Z" fill="url(#waterGrad2)" opacity="0.6"/>
+        <line x1="250" y1="170" x2="330" y2="171" stroke="#bae6fd" stroke-width="1" opacity="0.5"/>
+        <line x1="400" y1="172" x2="490" y2="173" stroke="#bae6fd" stroke-width="1" opacity="0.5"/>
+        <line x1="560" y1="169" x2="660" y2="170" stroke="#bae6fd" stroke-width="1" opacity="0.4"/>
+        <path d="M310,52 Q315,48 320,52" stroke="#451a03" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M325,44 Q331,40 337,44" stroke="#451a03" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M345,55 Q350,51 355,55" stroke="#451a03" stroke-width="1.2" fill="none" opacity="0.5"/>
+        <path d="M555,38 Q560,34 565,38" stroke="#451a03" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <path d="M572,48 Q577,44 582,48" stroke="#451a03" stroke-width="1.2" fill="none" opacity="0.5"/>
+        <rect x="128" y="130" width="4" height="28" fill="#431407" rx="2"/>
+        <ellipse cx="130" cy="124" rx="14" ry="18" fill="#14532d"/>
+        <ellipse cx="130" cy="120" rx="10" ry="14" fill="#166534"/>
+        <rect x="762" y="132" width="4" height="26" fill="#431407" rx="2"/>
+        <ellipse cx="764" cy="126" rx="13" ry="17" fill="#14532d"/>
+        <ellipse cx="764" cy="122" rx="9" ry="13" fill="#15803d"/>
+      </svg>
+    </div>
+
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-emblem">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">Max</div>
+          <div class="logo-sub">Practice Speech</div>
+        </div>
+      </div>
+      <div class="header-steps speech-header-steps">
+        <div class="hstep active" id="sp-hstep1"><span>1</span> Enter</div>
+        <div class="hstep-arrow">›</div>
+        <div class="hstep" id="sp-hstep2"><span>2</span> Review</div>
+        <div class="hstep-arrow">›</div>
+        <div class="hstep" id="sp-hstep3"><span>3</span> Polish</div>
+        <div class="hstep-arrow">›</div>
+        <div class="hstep" id="sp-hstep4"><span>4</span> Record</div>
+      </div>
+      <a href="index.html" class="nav-speech-btn nav-back-btn" aria-label="Back to Reading &amp; Writing Coach">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Reading Coach
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ════════════ CARD 1 — ENTER SPEECH ════════════ -->
+    <section class="card" id="sp-card-input">
+      <div class="card-accent accent-blue"></div>
+      <div class="card-header">
+        <div class="step-pill blue">Step 1</div>
+        <h2>Enter Your Speech</h2>
+        <p class="card-desc">Type or paste your full speech below. Max will produce three versions: Grammar corrections only, Enhanced Clarity, and Enhanced Rhythm — and build a structured outline.</p>
+      </div>
+      <div class="card-body">
+        <div class="textarea-wrap">
+          <textarea
+            id="sp-speechInput"
+            placeholder="Write or paste your full speech here…&#10;&#10;Example: 'Good morning everyone. Today I want to talk about the importance of reading…'"
+            rows="12"
+            aria-label="Full speech text input"
+          ></textarea>
+          <div class="textarea-footer">
+            <span class="char-pill"><span id="sp-charCount">0</span> characters</span>
+            <span class="hint-text">Ctrl + Enter to analyze</span>
+          </div>
+        </div>
+
+        <div class="step1-btn-row">
+          <button id="sp-analyzeBtn" class="btn btn-hero" aria-label="Analyze and improve speech">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Analyze &amp; Improve Speech
+          </button>
+          <button id="sp-clearBtn" class="btn btn-clear" aria-label="Clear speech text">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            Clear
+          </button>
+        </div>
+
+        <!-- Dictation row -->
+        <div class="sp-dictation-row">
+          <div class="sp-dictation-left">
+            <div class="mic-select-wrap">
+              <select id="sp-dictMicSelect" class="mic-select sp-dictation-mic" aria-label="Select microphone for dictation">
+                <option value="">Default microphone</option>
+              </select>
+              <button id="sp-dictMicRefresh" class="btn-icon" title="Refresh microphone list" aria-label="Refresh microphone list">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+              </button>
+            </div>
+          </div>
+          <button id="sp-dictateBtn" class="btn sp-dictate-btn" aria-label="Start dictation">
+            <svg id="sp-dictMicIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            <span id="sp-dictLabel">Dictate</span>
+            <span id="sp-dictSpinner" class="spin-ring" hidden></span>
+          </button>
+          <span id="sp-dictStatus" class="sp-dictation-status" hidden></span>
+        </div>
+
+        <div id="sp-globalLoader" class="progress-wrap" hidden>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+          <div class="progress-steps">
+            <span class="pstep active" id="sp-ps1">🎙️ Reading your speech…</span>
+            <span class="pstep" id="sp-ps2">✨ Improving flow &amp; grammar…</span>
+            <span class="pstep" id="sp-ps3">🗂️ Building outline…</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ CARD 2 — REVIEW & IMPROVE ════════════ -->
+    <section class="card card-locked" id="sp-card-review">
+      <div class="card-accent accent-purple"></div>
+      <div class="card-header">
+        <div class="step-pill purple">Step 2</div>
+        <h2>Review &amp; Improve</h2>
+        <p class="card-desc">Your improved speech is on the left. The structured outline is on the right. Listen, compare, then accept to record.</p>
+      </div>
+
+      <div class="card-body" id="sp-reviewBody">
+
+        <!-- Two-column layout: improved speech (left) + outline (right) -->
+        <div class="sp-two-col" id="sp-twoCol" hidden>
+
+          <!-- LEFT: Improved Speech -->
+          <div class="sp-col sp-col-left">
+            <div class="sp-col-header">
+              <div class="block-label">
+                <span class="label-dot blue"></span>
+                Improved Speech
+                <span class="badge-pill blue">3 Versions</span>
+              </div>
+              <button id="sp-listenBtn" class="btn-listen-explain" aria-label="Listen to the improved speech">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                <span id="sp-listenLabel">Listen</span>
+              </button>
+            </div>
+
+            <!-- Tabs: Flow / Syllable / Grammar -->
+            <!-- Tabs: Grammar / Enhanced Clarity / Enhanced Rhythm -->
+            <div class="sp-tabs" role="tablist">
+              <button class="sp-tab active" role="tab" data-tab="grammar" aria-selected="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Grammar
+              </button>
+              <button class="sp-tab" role="tab" data-tab="clarity" aria-selected="false">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                Enhanced Clarity
+              </button>
+              <button class="sp-tab" role="tab" data-tab="rhythm" aria-selected="false">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                Enhanced Rhythm
+              </button>
+            </div>
+
+            <!-- Tab panels -->
+            <div class="sp-tab-panel active" id="sp-panel-grammar">
+              <div id="sp-improvedGrammar" class="sp-speech-panel"></div>
+            </div>
+            <div class="sp-tab-panel" id="sp-panel-clarity">
+              <div id="sp-improvedClarity" class="sp-speech-panel"></div>
+            </div>
+            <div class="sp-tab-panel" id="sp-panel-rhythm">
+              <div id="sp-improvedRhythm" class="sp-speech-panel"></div>
+            </div>
+
+            <!-- Accept / Polish button -->
+            <button id="sp-acceptBtn" class="btn btn-proceed sp-accept-btn" aria-label="Polish this speech with AI">
+              Polish &amp; Finalize Speech
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </button>
+          </div>
+
+          <!-- RIGHT: Outline Tree -->
+          <div class="sp-col sp-col-right">
+            <div class="sp-col-header">
+              <div class="block-label">
+                <span class="label-dot teal"></span>
+                Speech Outline
+              </div>
+            </div>
+            <div id="sp-outlineTree" class="sp-outline-tree"></div>
+          </div>
+
+        </div><!-- /.sp-two-col -->
+
+        <!-- Skeleton while loading -->
+        <div id="sp-reviewSkeleton" hidden>
+          <div class="sp-two-col-skel">
+            <div class="sp-col-skel">
+              <div class="skel-label"></div>
+              <div class="skel-block tall"></div>
+              <div class="skel-block tall mt"></div>
+            </div>
+            <div class="sp-col-skel">
+              <div class="skel-label"></div>
+              <div class="skel-item"></div>
+              <div class="skel-item mt"></div>
+              <div class="skel-item mt"></div>
+              <div class="skel-item mt"></div>
+              <div class="skel-item mt"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lock-gate" id="sp-reviewLock">
+        <div class="lock-gate-inner">
+          <div class="lock-icon-wrap">🔒</div>
+          <p class="lock-title">Enter your speech first</p>
+          <p class="lock-sub">Submit your speech above to unlock this section</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ CARD 3 — POLISH & FINALIZE ════════════ -->
+    <section class="card card-locked" id="sp-card-polish">
+      <div class="card-accent accent-purple"></div>
+      <div class="card-header">
+        <div class="step-pill purple">Step 3</div>
+        <h2>Polish &amp; Finalize</h2>
+        <p class="card-desc">Max takes the version you selected and produces one final pass — enhanced and optimised for natural spoken delivery.</p>
+      </div>
+
+      <div class="card-body">
+
+        <!-- Loading state -->
+        <div id="sp-polishLoader" class="sp-polish-loader" hidden>
+          <span class="spin-ring" style="border-top-color:#9333ea"></span>
+          <span class="sp-polish-loading-text">Polishing your speech…</span>
+        </div>
+
+        <!-- Polished text output -->
+        <div id="sp-polishContent" hidden>
+
+          <!-- Source version badge -->
+          <div class="block-label sp-polish-source-row">
+            <span class="label-dot blue"></span>
+            Based on your
+            <strong id="sp-polishSourceLabel">Grammar Corrected</strong>
+            version
+          </div>
+
+          <!-- Final polished version -->
+          <div class="section-block">
+            <div class="block-label">
+              <span class="label-dot purple"></span>
+              Enhanced &amp; Optimised for Spoken Delivery
+              <span class="badge-pill purple">Final</span>
+            </div>
+            <div id="sp-polishText" class="sp-speech-panel sp-polish-panel"></div>
+          </div>
+
+          <button id="sp-usePolishedBtn" class="btn btn-proceed sp-accept-btn" aria-label="Use this polished speech for recording">
+            Use This for Recording
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+
+        <div class="lock-gate" id="sp-polishLock">
+          <div class="lock-gate-inner">
+            <div class="lock-icon-wrap">🔒</div>
+            <p class="lock-title">Complete Step 2 first</p>
+            <p class="lock-sub">Review your improved speech and click "Polish &amp; Finalize" to unlock this section</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════ CARD 4 — RECORD ════════════ -->
+    <section class="card card-locked" id="sp-card-record">
+      <div class="card-accent accent-red"></div>
+      <div class="card-header">
+        <div class="step-pill red">Step 4</div>
+        <h2>Rehearse &amp; Record</h2>
+        <p class="card-desc">Read your polished speech aloud using the teleprompter below, then record your delivery.</p>
+      </div>
+
+      <div class="card-body" id="sp-recordBody">
+        <div id="sp-recordContent" hidden>
+
+          <!-- Teleprompter -->
+          <div class="section-block">
+            <div class="block-label"><span class="label-dot dark"></span>Read This Aloud</div>
+            <div id="sp-teleprompter" class="teleprompter"></div>
+          </div>
+
+          <!-- ── Recording mode toggle ── -->
+          <div class="rec-mode-row" id="sp-recModeRow">
+            <span class="rec-mode-label">Record:</span>
+            <div class="rec-mode-toggle" role="group" aria-label="Recording mode">
+              <button class="rec-mode-btn active" id="sp-modeAudioBtn" data-mode="audio" aria-pressed="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                Audio only
+              </button>
+              <button class="rec-mode-btn" id="sp-modeVideoBtn" data-mode="video" aria-pressed="false">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                Video + Audio
+              </button>
+            </div>
+          </div>
+
+          <!-- Microphone selector -->
+          <div class="mic-select-row" id="sp-micSelectRow">
+            <label class="mic-select-label" for="sp-micSelect">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              Microphone
+            </label>
+            <div class="mic-select-wrap">
+              <select id="sp-micSelect" class="mic-select" aria-label="Select microphone">
+                <option value="">Default microphone</option>
+              </select>
+              <button id="sp-micRefreshBtn" class="btn-icon" title="Refresh microphone list" aria-label="Refresh microphone list">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Camera selector (shown only in video mode) -->
+          <div class="mic-select-row" id="sp-camSelectRow" hidden>
+            <label class="mic-select-label" for="sp-camSelect">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              Camera
+            </label>
+            <div class="mic-select-wrap">
+              <select id="sp-camSelect" class="mic-select" aria-label="Select camera">
+                <option value="">Default camera</option>
+              </select>
+              <button id="sp-camRefreshBtn" class="btn-icon" title="Refresh camera list" aria-label="Refresh camera list">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Live camera preview (shown while recording in video mode) -->
+          <div id="sp-cameraPreview" class="sp-camera-preview" hidden>
+            <video id="sp-previewVideo" autoplay muted playsinline class="sp-preview-video" aria-label="Camera preview"></video>
+            <div class="sp-camera-badge">
+              <span class="rec-live">● REC</span>
+            </div>
+          </div>
+
+          <!-- Record controls -->
+          <div class="record-row">
+            <button id="sp-recordBtn" class="btn btn-record-action" aria-label="Start recording">
+              <span class="rec-dot"></span>
+              <span id="sp-recordBtnLabel">Start Recording</span>
+            </button>
+            <button id="sp-recordAgainBtn" class="btn btn-ghost" hidden aria-label="Record again">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+              Record Again
+            </button>
+          </div>
+
+          <div id="sp-recordingStatus" class="rec-status" hidden>
+            <span class="rec-live">● LIVE</span> Recording in progress… Click "Stop Recording" when done.
+          </div>
+
+          <!-- Playback & submit -->
+          <div id="sp-playbackArea" hidden>
+            <div class="section-block mt-sm">
+              <div class="block-label"><span class="label-dot green"></span>Your Recording</div>
+              <!-- Audio playback (audio-only mode) -->
+              <div id="sp-audioPlaybackWrap" class="audio-player-wrap">
+                <audio id="sp-playbackAudio" controls preload="metadata" playsinline class="audio-player" aria-label="Play back your recording"></audio>
+              </div>
+              <!-- Video playback (video mode) -->
+              <div id="sp-videoPlaybackWrap" class="sp-video-playback-wrap" hidden>
+                <video id="sp-playbackVideo" controls preload="metadata" playsinline class="sp-playback-video" aria-label="Play back your video recording"></video>
+              </div>
+              <div class="download-row">
+                <button id="sp-downloadBtn" class="btn btn-ghost btn-sm" aria-label="Download your recording">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download
+                </button>
+              </div>
+            </div>
+
+            <!-- Submit section — AUDIO MODE (email + share) -->
+            <div class="section-block submit-block" id="sp-submitBlock">
+              <div class="block-label">
+                <span class="label-dot orange"></span>Submit Your Recording
+              </div>
+              <p class="submit-hint">Send your recording to your teacher, or share it directly from your phone.</p>
+
+              <div class="submit-form" id="sp-submitForm">
+                <div class="form-row">
+                  <label class="form-label" for="sp-studentName">Your Name <span class="req">*</span></label>
+                  <input type="text" id="sp-studentName" class="form-input" placeholder="First and last name" autocomplete="name" />
+                </div>
+                <div class="form-row">
+                  <label class="form-label" for="sp-studentEmail">Your Email <span class="req">(optional — to receive a copy)</span></label>
+                  <input type="email" id="sp-studentEmail" class="form-input" placeholder="your@email.com" autocomplete="email" />
+                </div>
+
+                <div class="submit-btn-row">
+                  <button id="sp-emailSubmitBtn" class="btn btn-submit-email" aria-label="Email recording to teacher">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    Email to Teacher
+                  </button>
+                  <div id="sp-emailLoader" class="inline-spin" hidden>
+                    <span class="spin-ring"></span><span>Sending…</span>
+                  </div>
+
+                  <button id="sp-shareBtn" class="btn btn-submit-share" aria-label="Share recording via apps">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    Share via App
+                    <span class="share-sub">WhatsApp · iMessage · WeChat</span>
+                  </button>
+                </div>
+
+                <div id="sp-emailSuccess" class="submit-success" hidden>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Recording sent to your teacher!
+                </div>
+              </div>
+            </div>
+
+            <!-- Video-only notice (shown instead of submit block in video mode) -->
+            <div class="section-block sp-video-notice" id="sp-videoNotice" hidden>
+              <div class="block-label">
+                <span class="label-dot orange"></span>Video Recording
+              </div>
+              <div class="sp-video-notice-body">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div>
+                  <p class="sp-video-notice-text">Video files are too large to email. Use <strong>Download</strong> above to save the file, then share it via WhatsApp, iMessage, Google Drive, or any file-sharing app.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /#sp-recordContent -->
+      </div>
+
+      <div class="lock-gate" id="sp-recordLock">
+        <div class="lock-gate-inner">
+          <div class="lock-icon-wrap">🔒</div>
+          <p class="lock-title">Complete Step 3 first</p>
+          <p class="lock-sub">Polish your speech to unlock recording</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast container -->
+  <div id="sp-toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Hidden TTS audio player -->
+  <audio id="sp-ttsAudio" style="display:none" aria-hidden="true"></audio>
+
+  <footer class="site-footer">
+    <p>Max &nbsp;·&nbsp; Practice Speech &nbsp;·&nbsp; All data lives only in this browser tab &nbsp;·&nbsp; Nothing is saved or stored</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="speech.js"></script>
+</body>
+</html>
