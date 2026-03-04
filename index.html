@@ -3,199 +3,453 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ReadSmart — Interactive Article Summarizer</title>
+  <title>Max — Reading &amp; Writing Coach</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,600;1,500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
-  <header class="site-header">
+  <!-- ════════════ HEADER ════════════ -->
+  <header class="site-header" role="banner">
+    <!-- Organic illustrated landscape banner -->
+    <div class="header-art" aria-hidden="true">
+      <svg class="header-svg" viewBox="0 0 900 90" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sky gradient -->
+        <defs>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fde68a"/>
+            <stop offset="45%" stop-color="#fb923c"/>
+            <stop offset="100%" stop-color="#c2410c"/>
+          </linearGradient>
+          <linearGradient id="hillGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#166534"/>
+            <stop offset="100%" stop-color="#14532d"/>
+          </linearGradient>
+          <linearGradient id="hill2Grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#15803d"/>
+            <stop offset="100%" stop-color="#166534"/>
+          </linearGradient>
+          <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#075985"/>
+            <stop offset="100%" stop-color="#0c4a6e"/>
+          </linearGradient>
+          <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fef3c7"/>
+            <stop offset="60%" stop-color="#fcd34d"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Sky -->
+        <rect width="900" height="180" fill="url(#skyGrad)"/>
+        <!-- Sun glow -->
+        <circle cx="450" cy="78" r="52" fill="url(#sunGrad)" opacity="0.9"/>
+        <circle cx="450" cy="78" r="28" fill="#fef9c3" opacity="0.95"/>
+        <!-- Distant mountains -->
+        <path d="M0,130 Q80,70 160,115 Q220,75 290,118 Q360,68 430,112 Q490,72 560,116 Q630,65 700,112 Q760,75 830,110 L900,105 L900,180 L0,180Z" fill="#9a3412" opacity="0.55"/>
+        <!-- Far hill -->
+        <path d="M0,148 Q120,100 250,140 Q370,108 500,145 Q620,105 760,138 Q840,118 900,130 L900,180 L0,180Z" fill="url(#hillGrad)" opacity="0.85"/>
+        <!-- Near hill -->
+        <path d="M0,160 Q100,135 220,155 Q350,138 480,158 Q600,140 720,160 Q820,146 900,155 L900,180 L0,180Z" fill="url(#hill2Grad)"/>
+        <!-- Water strip -->
+        <path d="M200,168 Q350,158 500,165 Q650,156 760,165 L760,180 L200,180Z" fill="url(#waterGrad)" opacity="0.6"/>
+        <!-- Water shimmer lines -->
+        <line x1="250" y1="170" x2="330" y2="171" stroke="#bae6fd" stroke-width="1" opacity="0.5"/>
+        <line x1="400" y1="172" x2="490" y2="173" stroke="#bae6fd" stroke-width="1" opacity="0.5"/>
+        <line x1="560" y1="169" x2="660" y2="170" stroke="#bae6fd" stroke-width="1" opacity="0.4"/>
+        <!-- Birds (simple V shapes) -->
+        <path d="M310,52 Q315,48 320,52" stroke="#451a03" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M325,44 Q331,40 337,44" stroke="#451a03" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M345,55 Q350,51 355,55" stroke="#451a03" stroke-width="1.2" fill="none" opacity="0.5"/>
+        <path d="M555,38 Q560,34 565,38" stroke="#451a03" stroke-width="1.5" fill="none" opacity="0.6"/>
+        <path d="M572,48 Q577,44 582,48" stroke="#451a03" stroke-width="1.2" fill="none" opacity="0.5"/>
+        <!-- Lone tree left -->
+        <rect x="128" y="130" width="4" height="28" fill="#431407" rx="2"/>
+        <ellipse cx="130" cy="124" rx="14" ry="18" fill="#14532d"/>
+        <ellipse cx="130" cy="120" rx="10" ry="14" fill="#166534"/>
+        <!-- Lone tree right -->
+        <rect x="762" y="132" width="4" height="26" fill="#431407" rx="2"/>
+        <ellipse cx="764" cy="126" rx="13" ry="17" fill="#14532d"/>
+        <ellipse cx="764" cy="122" rx="9" ry="13" fill="#15803d"/>
+      </svg>
+    </div>
+
     <div class="header-inner">
       <div class="logo">
-        <span class="logo-icon">📖</span>
-        <span class="logo-text">ReadSmart</span>
+        <div class="logo-emblem">
+          <!-- Open book SVG -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">Max</div>
+          <div class="logo-sub">Your Reading &amp; Writing Coach</div>
+        </div>
       </div>
-      <p class="tagline">Paste an article · Understand it · Summarize it · Record it</p>
+      <div class="header-steps">
+        <div class="hstep active" id="hstep1"><span>1</span> Input</div>
+        <div class="hstep-arrow">›</div>
+        <div class="hstep" id="hstep2"><span>2</span> Understand</div>
+        <div class="hstep-arrow">›</div>
+        <div class="hstep" id="hstep3"><span>3</span> Summarize</div>
+        <div class="hstep-arrow">›</div>
+        <div class="hstep" id="hstep4"><span>4</span> Record</div>
+      </div>
+      <a href="speech.html" class="nav-speech-btn" aria-label="Go to Practice Speech page">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        Practice Speech
+      </a>
     </div>
   </header>
 
   <main class="container">
 
-    <!-- ══════════════════ SECTION 1 — ARTICLE INPUT ══════════════════ -->
+    <!-- ════════════ CARD 1 — ARTICLE INPUT ════════════ -->
     <section class="card" id="card-article">
+      <div class="card-accent accent-blue"></div>
       <div class="card-header">
-        <span class="step-badge">1</span>
-        <h2>Article Input</h2>
+        <div class="step-pill blue">Step 1</div>
+        <h2>Paste Your Article</h2>
+        <p class="card-desc">Paste any article, news story, or text — Max will break it down for you.</p>
       </div>
       <div class="card-body">
-        <label for="articleText" class="sr-only">Paste your article here</label>
-        <textarea
-          id="articleText"
-          placeholder="Paste or type your article here…"
-          rows="10"
-          aria-label="Article text input"
-        ></textarea>
+        <div class="textarea-wrap">
+          <textarea id="articleText" placeholder="Paste your article here…&#10;&#10;Tip: any news article, textbook passage, or essay works great." rows="10" aria-label="Article text input"></textarea>
+          <div class="textarea-footer">
+            <span class="char-pill"><span id="charCount">0</span> characters</span>
+            <span class="hint-text">Ctrl + Enter to analyze</span>
+          </div>
+        </div>
 
-        <div class="char-count"><span id="charCount">0</span> characters</div>
+        <div class="step1-btn-row">
+          <button id="analyzeBtn" class="btn btn-hero" aria-label="Analyze the article">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Analyze Article
+          </button>
+          <button id="clearArticleBtn" class="btn btn-clear" aria-label="Clear article text">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            Clear
+          </button>
+        </div>
 
-        <button id="analyzeBtn" class="btn btn-primary btn-large" aria-label="Analyze the article">
-          <span class="btn-icon">🔍</span> Analyze Article
-        </button>
-
-        <!-- Global loading bar -->
-        <div id="globalLoader" class="loader-bar" role="status" aria-live="polite" hidden>
-          <div class="loader-bar-fill"></div>
-          <span class="loader-label">Analyzing article — this may take a few seconds…</span>
+        <div id="globalLoader" class="progress-wrap" hidden>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+          <div class="progress-steps">
+            <span class="pstep active" id="ps1">🧠 Reading article…</span>
+            <span class="pstep" id="ps2">📝 Generating explanation…</span>
+            <span class="pstep" id="ps3">🗂️ Building outline…</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════════════ SECTION 2 — EXPLANATION & VOCAB ══════════════════ -->
-    <section class="card card-locked" id="card-explain" aria-label="Explanation and Vocabulary">
+    <!-- ════════════ CARD 2 — EXPLANATION & VOCAB ════════════ -->
+    <section class="card card-locked" id="card-explain">
+      <div class="card-accent accent-purple"></div>
       <div class="card-header">
-        <span class="step-badge">2</span>
+        <div class="step-pill purple">Step 2</div>
         <h2>Explanation &amp; Vocabulary</h2>
-        <span id="voiceLabel" class="voice-chip" hidden></span>
+        <p class="card-desc">Max explains the article in plain language and highlights key vocabulary.</p>
+        <div id="voiceLabel" class="voice-badge" hidden>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span id="voiceName"></span>
+        </div>
       </div>
+      <div class="card-body" id="explainBody">
 
-      <div class="card-body">
-        <!-- skeleton while loading -->
-        <div id="explainSkeleton" class="skeleton-group" hidden>
-          <div class="skeleton skeleton-title"></div>
-          <div class="skeleton skeleton-line"></div>
-          <div class="skeleton skeleton-line short"></div>
-          <div class="skeleton skeleton-line"></div>
-          <div class="skeleton skeleton-line short"></div>
+        <!-- skeleton -->
+        <div id="explainSkeleton" hidden>
+          <div class="skel-label"></div>
+          <div class="skel-block tall"></div>
+          <div class="skel-label mt"></div>
+          <div class="skel-grid">
+            <div class="skel-card"></div><div class="skel-card"></div>
+            <div class="skel-card"></div><div class="skel-card"></div>
+          </div>
         </div>
 
         <!-- real content -->
         <div id="explainContent" hidden>
-          <h3 class="subsection-title">📝 Article Explanation</h3>
-          <p id="explanationText" class="explanation-body"></p>
-
-          <h3 class="subsection-title vocab-heading">📚 Vocabulary Builder</h3>
-          <div id="vocabGrid" class="vocab-grid" role="list" aria-label="Vocabulary words"></div>
+          <div class="section-block">
+            <div class="block-label">
+              <span class="label-dot blue"></span>Article Explanation
+              <button id="listenExplanationBtn" class="btn-listen-explain" aria-label="Listen to the full article explanation">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                <span id="listenExplanationLabel">Listen to Explanation</span>
+              </button>
+            </div>
+            <div id="explanationText" class="explanation-panel"></div>
+          </div>
+          <div class="section-block">
+            <div class="block-label"><span class="label-dot purple"></span>Vocabulary Builder
+              <span class="vocab-hint">Click <strong>Listen</strong> on any card to hear the word and its definition read aloud</span>
+            </div>
+            <div id="vocabGrid" class="vocab-grid" role="list"></div>
+          </div>
         </div>
 
-        <!-- locked overlay -->
-        <div class="locked-overlay" id="explainLock">
-          <span class="lock-icon">🔒</span>
-          <p>Submit an article above to unlock this section.</p>
+      </div>
+
+      <!-- locked state -->
+      <div class="lock-gate" id="explainLock">
+        <div class="lock-gate-inner">
+          <div class="lock-icon-wrap">🔒</div>
+          <p class="lock-title">Waiting for your article</p>
+          <p class="lock-sub">Submit an article above to unlock this section</p>
         </div>
       </div>
     </section>
 
-    <!-- ══════════════════ SECTION 3 — SUMMARY & GRAMMAR CHECK ══════════════════ -->
-    <section class="card card-locked" id="card-summary" aria-label="Summary Writing and Grammar Check">
+    <!-- ════════════ CARD 3 — SUMMARY ════════════ -->
+    <section class="card card-locked" id="card-summary">
+      <div class="card-accent accent-teal"></div>
       <div class="card-header">
-        <span class="step-badge">3</span>
+        <div class="step-pill teal">Step 3</div>
         <h2>Write Your Summary</h2>
+        <p class="card-desc">Use the outline hints to write your own summary, then get grammar feedback.</p>
       </div>
+      <div class="card-body" id="summaryBody">
 
-      <div class="card-body">
         <!-- skeleton -->
-        <div id="outlineSkeleton" class="skeleton-group" hidden>
-          <div class="skeleton skeleton-title"></div>
-          <div class="skeleton skeleton-line short"></div>
-          <div class="skeleton skeleton-line short"></div>
-          <div class="skeleton skeleton-line short"></div>
-          <div class="skeleton skeleton-line short"></div>
+        <div id="outlineSkeleton" hidden>
+          <div class="skel-label"></div>
+          <div class="skel-list">
+            <div class="skel-item"></div><div class="skel-item"></div>
+            <div class="skel-item"></div><div class="skel-item"></div>
+          </div>
         </div>
 
-        <!-- outline hints -->
+        <!-- outline -->
         <div id="outlineContent" hidden>
-          <h3 class="subsection-title">🗂️ Outline Hints</h3>
-          <ul id="outlineList" class="outline-list" aria-label="Outline hints"></ul>
+          <div class="section-block">
+            <div class="block-label"><span class="label-dot teal"></span>Outline Hints</div>
+            <ul id="outlineList" class="outline-list"></ul>
+          </div>
         </div>
 
-        <!-- student summary input -->
+        <!-- summary textarea -->
         <div id="summaryInputArea" hidden>
-          <h3 class="subsection-title">✏️ Your Summary</h3>
-          <label for="studentSummary" class="sr-only">Write your summary here</label>
-          <textarea
-            id="studentSummary"
-            placeholder="Use the outline hints above to write your summary here…"
-            rows="6"
-            aria-label="Student summary input"
-          ></textarea>
+          <div class="section-block">
+            <div class="block-label"><span class="label-dot orange"></span>Your Summary</div>
+            <div class="textarea-wrap">
+              <textarea id="studentSummary" placeholder="Write your summary here using the outline hints above as your guide…" rows="6" aria-label="Student summary"></textarea>
+            </div>
 
-          <button id="checkGrammarBtn" class="btn btn-secondary" aria-label="Check grammar of your summary">
-            <span class="btn-icon">✅</span> Check Summary
-          </button>
+            <!-- Dictation row -->
+            <div class="sp-dictation-row" id="summaryDictRow">
+              <div class="sp-dictation-left">
+                <select id="dictMicSelect" class="sp-dictation-mic" aria-label="Select microphone for dictation">
+                  <option value="">Default microphone</option>
+                </select>
+                <button id="dictMicRefresh" class="icon-btn" title="Refresh microphone list" aria-label="Refresh microphone list">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </button>
+              </div>
+              <button id="dictateBtn" class="sp-dictate-btn" aria-label="Dictate speech">
+                <svg id="dictMicIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                <span class="spin-ring" id="dictSpinner" hidden></span>
+                <span id="dictLabel">Dictate</span>
+              </button>
+              <span id="dictStatus" class="sp-dictation-status" hidden></span>
+            </div>
 
-          <div id="grammarLoader" class="inline-loader" hidden role="status" aria-live="polite">
-            <span class="spinner"></span> Checking grammar…
+            <div class="btn-row">
+              <button id="checkGrammarBtn" class="btn btn-secondary-action" aria-label="Check grammar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Check Grammar
+              </button>
+              <div id="grammarLoader" class="inline-spin" hidden>
+                <span class="spin-ring"></span><span>Checking grammar…</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- corrected output -->
         <div id="correctedArea" hidden>
-          <h3 class="subsection-title">🔧 Grammar‑Corrected Version</h3>
-          <div id="correctedText" class="corrected-box" role="region" aria-label="Corrected summary"></div>
-          <button id="acceptCorrectionBtn" class="btn btn-success" aria-label="Accept corrected summary and proceed to recording">
-            <span class="btn-icon">⬇️</span> Use This for Recording
+
+          <!-- Three-column comparison: Original | Grammar Corrected | Improved -->
+          <!-- Click Grammar Corrected or Improved to select it; "Use This" will lightly polish that version -->
+          <div class="correction-compare correction-three-col">
+            <div class="correction-col correction-col-original">
+              <div class="block-label">
+                <span class="label-dot orange"></span>Your Original
+              </div>
+              <div id="originalText" class="corrected-panel correction-original"></div>
+            </div>
+            <div class="correction-col correction-col-selectable" id="colCorrected" data-panel="corrected" role="button" tabindex="0" aria-label="Select Grammar Corrected version" title="Click to select this version">
+              <div class="block-label">
+                <span class="label-dot green"></span>Grammar Corrected
+                <span class="badge-pill green">Reviewed</span>
+                <span class="col-check-icon" id="checkCorrected" hidden aria-hidden="true">✓</span>
+              </div>
+              <div id="correctedText" class="corrected-panel correction-corrected"></div>
+            </div>
+            <div class="correction-col correction-col-selectable" id="colImproved" data-panel="improved" role="button" tabindex="0" aria-label="Select Improved version" title="Click to select this version">
+              <div class="block-label">
+                <span class="label-dot purple"></span>Improved
+                <span class="badge-pill purple">Rhythm &amp; Flow</span>
+                <span class="col-check-icon" id="checkImproved" hidden aria-hidden="true">✓</span>
+              </div>
+              <div id="improveLoader" class="inline-spin" hidden>
+                <span class="spin-ring"></span><span>Improving…</span>
+              </div>
+              <div id="improvedText" class="corrected-panel correction-improved" hidden></div>
+            </div>
+          </div>
+
+          <p id="panelHint" class="panel-select-hint">Click a panel to select it, then press <strong>Use This for Recording</strong></p>
+
+          <button id="acceptCorrectionBtn" class="btn btn-proceed" aria-label="Use selected version for recording">
+            Use This for Recording
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
         </div>
 
-        <!-- locked overlay -->
-        <div class="locked-overlay" id="summaryLock">
-          <span class="lock-icon">🔒</span>
-          <p>Submit an article above to unlock this section.</p>
+      </div>
+
+      <div class="lock-gate" id="summaryLock">
+        <div class="lock-gate-inner">
+          <div class="lock-icon-wrap">🔒</div>
+          <p class="lock-title">Waiting for your article</p>
+          <p class="lock-sub">Submit an article above to unlock this section</p>
         </div>
       </div>
     </section>
 
-    <!-- ══════════════════ SECTION 4 — READ & RECORD ══════════════════ -->
-    <section class="card card-locked" id="card-record" aria-label="Read and Record">
+    <!-- ════════════ CARD 4 — RECORD ════════════ -->
+    <section class="card card-locked" id="card-record">
+      <div class="card-accent accent-red"></div>
       <div class="card-header">
-        <span class="step-badge">4</span>
+        <div class="step-pill red">Step 4</div>
         <h2>Read &amp; Record</h2>
+        <p class="card-desc">Read your improved summary aloud using the teleprompter, then record yourself.</p>
       </div>
+      <div class="card-body" id="recordBody">
 
-      <div class="card-body">
         <div id="recordContent" hidden>
-          <h3 class="subsection-title">🎙️ Teleprompter</h3>
-          <p class="record-hint">Read the corrected summary below aloud and record yourself.</p>
-          <div id="teleprompter" class="teleprompter" role="region" aria-label="Text to read aloud"></div>
+          <!-- Read-aloud display (no "Teleprompter" label) -->
+          <div class="section-block">
+            <div class="block-label"><span class="label-dot purple"></span>Read This Aloud (Improved)</div>
+            <div id="teleprompter" class="teleprompter"></div>
+          </div>
 
-          <div class="record-controls" role="group" aria-label="Recording controls">
-            <button id="recordBtn" class="btn btn-record" aria-label="Start recording">
-              <span class="record-dot"></span> Start Recording
+          <!-- Microphone selector -->
+          <div class="mic-select-row" id="micSelectRow">
+            <label class="mic-select-label" for="micSelect">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+              Microphone
+            </label>
+            <div class="mic-select-wrap">
+              <select id="micSelect" class="mic-select" aria-label="Select microphone">
+                <option value="">Default microphone</option>
+              </select>
+              <button id="micRefreshBtn" class="btn-icon" title="Refresh microphone list" aria-label="Refresh microphone list">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="record-row">
+            <button id="recordBtn" class="btn btn-record-action" aria-label="Start recording">
+              <span class="rec-dot"></span>
+              <span id="recordBtnLabel">Start Recording</span>
             </button>
-            <button id="recordAgainBtn" class="btn btn-outline" hidden aria-label="Record again">
-              🔄 Record Again
+            <button id="recordAgainBtn" class="btn btn-ghost" hidden aria-label="Record again">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+              Record Again
             </button>
           </div>
 
-          <div id="recordingStatus" class="recording-status" hidden role="status" aria-live="polite">
-            <span class="pulse-dot"></span> Recording in progress…
+          <div id="recordingStatus" class="rec-status" hidden>
+            <span class="rec-live">● LIVE</span> Recording in progress… Click "Stop Recording" when done.
           </div>
 
           <div id="playbackArea" hidden>
-            <h3 class="subsection-title">🎧 Your Recording</h3>
-            <audio id="playbackAudio" controls class="playback-audio" aria-label="Recorded audio playback"></audio>
+            <div class="section-block mt-sm">
+              <div class="block-label"><span class="label-dot green"></span>Your Recording</div>
+              <div class="audio-player-wrap">
+                <audio id="playbackAudio" controls preload="metadata" playsinline class="audio-player" aria-label="Play back your recording"></audio>
+              </div>
+              <div class="download-row">
+                <button id="downloadBtn" class="btn btn-ghost btn-sm" aria-label="Download your recording">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download
+                </button>
+              </div>
+            </div>
+
+            <!-- ── Submit / Share section ── -->
+            <div class="section-block submit-block" id="submitBlock">
+              <div class="block-label">
+                <span class="label-dot orange"></span>Submit Your Recording
+              </div>
+              <p class="submit-hint">Send your recording to your teacher, or share it directly from your phone.</p>
+
+              <!-- Name + email form -->
+              <div class="submit-form" id="submitForm">
+                <div class="form-row">
+                  <label class="form-label" for="studentName">Your Name <span class="req">*</span></label>
+                  <input type="text" id="studentName" class="form-input" placeholder="First and last name" autocomplete="name" />
+                </div>
+                <div class="form-row">
+                  <label class="form-label" for="studentEmail">Your Email <span class="req">(optional — to receive a copy)</span></label>
+                  <input type="email" id="studentEmail" class="form-input" placeholder="your@email.com" autocomplete="email" />
+                </div>
+
+                <div class="submit-btn-row">
+                  <!-- Email to teacher -->
+                  <button id="emailSubmitBtn" class="btn btn-submit-email" aria-label="Email recording to teacher">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    Email to Teacher
+                  </button>
+                  <div id="emailLoader" class="inline-spin" hidden>
+                    <span class="spin-ring"></span><span>Sending…</span>
+                  </div>
+
+                  <!-- Web Share (mobile native share sheet) -->
+                  <button id="shareBtn" class="btn btn-submit-share" aria-label="Share recording via apps">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    Share via App
+                    <span class="share-sub">WhatsApp · iMessage · WeChat</span>
+                  </button>
+                </div>
+
+                <!-- Success confirmation -->
+                <div id="emailSuccess" class="submit-success" hidden>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  Recording sent to your teacher!
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- locked overlay -->
-        <div class="locked-overlay" id="recordLock">
-          <span class="lock-icon">🔒</span>
-          <p>Complete your grammar‑checked summary above to unlock this section.</p>
+      </div>
+
+      <div class="lock-gate" id="recordLock">
+        <div class="lock-gate-inner">
+          <div class="lock-icon-wrap">🔒</div>
+          <p class="lock-title">Complete Step 3 first</p>
+          <p class="lock-sub">Accept your corrected summary to unlock recording</p>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Toast notification -->
+  <!-- Toast container -->
   <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Hidden audio element for vocab TTS -->
-  <audio id="ttsAudio" aria-label="Vocabulary word pronunciation" style="display:none;"></audio>
+  <!-- Hidden TTS audio player -->
+  <audio id="ttsAudio" style="display:none" aria-hidden="true"></audio>
 
   <footer class="site-footer">
-    <p>ReadSmart · All data lives only in this browser tab · No information is stored or transmitted beyond API calls</p>
+    <p>Max &nbsp;·&nbsp; All data lives only in this browser tab &nbsp;·&nbsp; Nothing is saved or stored</p>
   </footer>
 
   <script src="config.js"></script>
