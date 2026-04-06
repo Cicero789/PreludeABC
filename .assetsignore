@@ -1,0 +1,10 @@
+node_modules/
+.wrangler/
+.git/
+.gitignore
+.assetsignore
+.dev.vars*
+.env*
+wrangler.jsonc
+wrangler-proxy.jsonc
+worker.js
