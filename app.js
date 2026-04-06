@@ -247,18 +247,15 @@ WHAT TO CHANGE (minimally):
 - Improve rhythm for natural spoken delivery by adjusting sentence length variation only slightly.
 - Remove obvious redundancies or filler words (e.g., "very", "really", "basically").
 - Keep verb tenses consistent throughout.
+- Make the syllables balanced when reading aloud.
 
 WHAT NOT TO CHANGE:
-- Do NOT rewrite sentences from scratch. Keep the student's original sentence structure wherever possible.
-- Do NOT replace the student's words with synonyms unless the original word is genuinely unclear.
 - Do NOT change the meaning, message, or argument of any sentence.
 - Do NOT add new ideas, examples, or content that were not in the original.
 - Do NOT remove any important details or facts from the original.
 - Do NOT use em dashes (—).
 - Do NOT change, correct, or alter anything inside quotation marks.
 - Do NOT make the text sound more formal or academic than the original — match the student's register and reading level.
-
-The improved version must be recognizably close to the input. A reader should be able to see it is the same text with light editing, not a rewrite.
 
 Output ONLY the improved text. No labels, headings, or markdown.`;
 
