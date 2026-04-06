@@ -169,7 +169,8 @@ export default {
         });
 
         /* Transform to OpenAI-compatible format so the frontend works unchanged */
-        const responseText = aiResult.response || '';
+        const raw = aiResult.response ?? aiResult.result ?? aiResult;
+        const responseText = typeof raw === 'string' ? raw : JSON.stringify(raw);
         return json({
           choices: [{
             message: { role: 'assistant', content: responseText },
