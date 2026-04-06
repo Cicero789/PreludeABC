@@ -3,5 +3,8 @@
   "name": "max-api-proxy",
   "main": "worker.js",
   "compatibility_date": "2025-09-27",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": {
+    "binding": "AI"
+  }
 }

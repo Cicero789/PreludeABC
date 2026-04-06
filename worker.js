@@ -2,17 +2,21 @@
  * Max — Cloudflare Worker API Proxy  (worker.js)
  *
  * Routes:
- *   POST /api/chat        → OpenAI  /v1/chat/completions
+ *   POST /api/chat        → Cloudflare Workers AI (chat completions)
  *   POST /api/tts         → MiniMax /v1/t2a_v2
- *   POST /api/stt         → OpenAI  /v1/audio/transcriptions  (Whisper)
+ *   POST /api/stt         → Cloudflare Workers AI (Whisper STT)
  *   POST /api/email       → Mailgun /v3/{domain}/messages  (raw multipart body)
  *   GET  /api/health      → status check
  *   OPTIONS *             → CORS pre-flight
  *
+ * Bindings (wrangler-proxy.jsonc):
+ *   AI  – Cloudflare Workers AI binding (no API key needed)
+ *
  * Secrets (Cloudflare dashboard → Workers → max-api-proxy → Settings → Variables):
- *   OPENAI_API_KEY     – sk-proj-…
- *   MINIMAX_API_KEY    – sk-api-…
+ *   MINIMAX_API_KEY    – sk-api-…  (optional, for TTS)
  *   MAILGUN_API_KEY    – xxxxxxxx-xxxxxxxx-xxxxxxxx  (Mailgun Sending API key)
+ *   CF_API_TOKEN       – Cloudflare API token (optional fallback for REST AI API)
+ *   CF_ACCOUNT_ID      – Cloudflare account ID (optional fallback for REST AI API)
  *
  * NOTE: Cloudflare Workers' FormData implementation causes Mailgun to reject
  * requests with "to parameter not valid". The fix is to construct the
@@ -34,9 +38,11 @@ const FROM_ADDRESS   = 'Max Recording App <recordings@mg.maxfacts.work>';
 const MAILGUN_DOMAIN = 'mg.maxfacts.work';
 const MAILGUN_URL    = `https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`;
 
-const OPENAI_URL      = 'https://api.openai.com/v1/chat/completions';
-const OPENAI_STT_URL  = 'https://api.openai.com/v1/audio/transcriptions';
 const MINIMAX_URL     = 'https://api.minimax.io/v1/t2a_v2';
+
+/* Cloudflare Workers AI model IDs */
+const CF_CHAT_MODEL   = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+const CF_WHISPER_MODEL = '@cf/openai/whisper-large-v3-turbo';
 
 /* ─── CORS helpers ──────────────────────────────────────────────── */
 function corsHeaders(origin) {
@@ -147,27 +153,40 @@ export default {
     if (request.method !== 'POST')
       return err('Method not allowed', 405, origin);
 
-    /* ── /api/chat → OpenAI ── */
+    /* ── /api/chat → Cloudflare Workers AI ── */
     if (url.pathname === '/api/chat') {
       let body;
       try { body = await request.json(); }
       catch { return err('Invalid JSON body', 400, origin); }
       if (!body?.messages || !Array.isArray(body.messages))
         return err('Missing messages array', 400, origin);
-      body.model = 'gpt-4o';
-      const up = await fetch(OPENAI_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type':  'application/json',
-          'Authorization': `Bearer ${env.OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify(body),
-      });
-      return json(await up.json(), up.status, origin);
+
+      try {
+        const aiResult = await env.AI.run(CF_CHAT_MODEL, {
+          messages: body.messages,
+          temperature: body.temperature ?? 0.4,
+          max_tokens: body.max_tokens ?? 4096,
+        });
+
+        /* Transform to OpenAI-compatible format so the frontend works unchanged */
+        const responseText = aiResult.response || '';
+        return json({
+          choices: [{
+            message: { role: 'assistant', content: responseText },
+            finish_reason: 'stop',
+          }],
+          model: CF_CHAT_MODEL,
+        }, 200, origin);
+      } catch (e) {
+        console.error('Cloudflare AI error:', e);
+        return err(`AI error: ${e.message}`, 502, origin);
+      }
     }
 
     /* ── /api/tts → MiniMax ── */
     if (url.pathname === '/api/tts') {
+      if (!env.MINIMAX_API_KEY)
+        return err('TTS service not configured (MINIMAX_API_KEY missing)', 503, origin);
       let body;
       try { body = await request.json(); }
       catch { return err('Invalid JSON body', 400, origin); }
@@ -317,7 +336,7 @@ export default {
       return json({ ok: false, error: `Mailgun: ${mgErr}` }, 502, origin);
     }
 
-    /* ── /api/stt → OpenAI Whisper (speech-to-text) ── */
+    /* ── /api/stt → Cloudflare Workers AI (Whisper) ── */
     if (url.pathname === '/api/stt') {
       /* Expects multipart/form-data with a field named 'audio' (audio file blob) */
       let formData;
@@ -326,20 +345,20 @@ export default {
       const audioFile = formData.get('audio');
       if (!audioFile) return err('Missing audio field', 400, origin);
 
-      /* Forward to OpenAI Whisper — rebuild FormData for OpenAI */
-      const oaiForm = new FormData();
-      oaiForm.append('file', audioFile, audioFile.name || 'audio.webm');
-      oaiForm.append('model', 'whisper-1');
-      oaiForm.append('language', 'en');
+      try {
+        /* Convert the uploaded file to an ArrayBuffer for Cloudflare AI */
+        const audioBuffer = await audioFile.arrayBuffer();
+        const audioArray = [...new Uint8Array(audioBuffer)];
 
-      const up = await fetch(OPENAI_STT_URL, {
-        method:  'POST',
-        headers: { 'Authorization': `Bearer ${env.OPENAI_API_KEY}` },
-        body:    oaiForm,
-      });
-      const result = await up.json().catch(() => ({}));
-      if (!up.ok) return json({ ok: false, error: result?.error?.message || `HTTP ${up.status}` }, up.status, origin);
-      return json({ ok: true, text: result.text || '' }, 200, origin);
+        const result = await env.AI.run(CF_WHISPER_MODEL, {
+          audio: audioArray,
+        });
+
+        return json({ ok: true, text: result.text || '' }, 200, origin);
+      } catch (e) {
+        console.error('Cloudflare STT error:', e);
+        return err(`STT error: ${e.message}`, 502, origin);
+      }
     }
 
     return err('Not found', 404, origin);
