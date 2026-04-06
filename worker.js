@@ -2,7 +2,7 @@
  * Max — Cloudflare Worker API Proxy  (worker.js)
  *
  * Routes:
- *   POST /api/chat        → Cloudflare Workers AI (chat completions)
+ *   POST /api/chat        → OpenAI GPT-4o
  *   POST /api/tts         → MiniMax /v1/t2a_v2
  *   POST /api/stt         → Cloudflare Workers AI (Whisper STT)
  *   POST /api/email       → Mailgun /v3/{domain}/messages  (raw multipart body)
@@ -10,13 +10,12 @@
  *   OPTIONS *             → CORS pre-flight
  *
  * Bindings (wrangler-proxy.jsonc):
- *   AI  – Cloudflare Workers AI binding (no API key needed)
+ *   AI  – Cloudflare Workers AI binding (for STT/Whisper)
  *
  * Secrets (Cloudflare dashboard → Workers → max-api-proxy → Settings → Variables):
- *   MINIMAX_API_KEY    – sk-api-…  (optional, for TTS)
+ *   OPENAI_API_KEY     – sk-proj-…  (for chat/grammar)
+ *   MINIMAX_API_KEY    – (JWT token for TTS)
  *   MAILGUN_API_KEY    – xxxxxxxx-xxxxxxxx-xxxxxxxx  (Mailgun Sending API key)
- *   CF_API_TOKEN       – Cloudflare API token (optional fallback for REST AI API)
- *   CF_ACCOUNT_ID      – Cloudflare account ID (optional fallback for REST AI API)
  *
  * NOTE: Cloudflare Workers' FormData implementation causes Mailgun to reject
  * requests with "to parameter not valid". The fix is to construct the
@@ -38,10 +37,10 @@ const FROM_ADDRESS   = 'Max Recording App <recordings@mg.maxfacts.work>';
 const MAILGUN_DOMAIN = 'mg.maxfacts.work';
 const MAILGUN_URL    = `https://api.mailgun.net/v3/${MAILGUN_DOMAIN}/messages`;
 
+const OPENAI_URL      = 'https://api.openai.com/v1/chat/completions';
 const MINIMAX_URL     = 'https://api.minimax.io/v1/t2a_v2';
 
 /* Cloudflare Workers AI model IDs */
-const CF_CHAT_MODEL   = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 const CF_WHISPER_MODEL = '@cf/openai/whisper-large-v3-turbo';
 
 /* ─── CORS helpers ──────────────────────────────────────────────── */
@@ -153,35 +152,23 @@ export default {
     if (request.method !== 'POST')
       return err('Method not allowed', 405, origin);
 
-    /* ── /api/chat → Cloudflare Workers AI ── */
+    /* ── /api/chat → OpenAI GPT-4o ── */
     if (url.pathname === '/api/chat') {
       let body;
       try { body = await request.json(); }
       catch { return err('Invalid JSON body', 400, origin); }
       if (!body?.messages || !Array.isArray(body.messages))
         return err('Missing messages array', 400, origin);
-
-      try {
-        const aiResult = await env.AI.run(CF_CHAT_MODEL, {
-          messages: body.messages,
-          temperature: body.temperature ?? 0.4,
-          max_tokens: body.max_tokens ?? 4096,
-        });
-
-        /* Transform to OpenAI-compatible format so the frontend works unchanged */
-        const raw = aiResult.response ?? aiResult.result ?? aiResult;
-        const responseText = typeof raw === 'string' ? raw : JSON.stringify(raw);
-        return json({
-          choices: [{
-            message: { role: 'assistant', content: responseText },
-            finish_reason: 'stop',
-          }],
-          model: CF_CHAT_MODEL,
-        }, 200, origin);
-      } catch (e) {
-        console.error('Cloudflare AI error:', e);
-        return err(`AI error: ${e.message}`, 502, origin);
-      }
+      body.model = 'gpt-4o';
+      const up = await fetch(OPENAI_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${env.OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify(body),
+      });
+      return json(await up.json(), up.status, origin);
     }
 
     /* ── /api/tts → MiniMax ── */
